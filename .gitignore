@@ -1,0 +1,17 @@
+# npm
+node_modules/
+npm-debug.log
+
+# webpack stuff
+build/
+dist/
+log.html
+output.xml
+report.html
+
+# IDE
+.idea
+
+# else
+*.css
+*.js

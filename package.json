@@ -1,0 +1,37 @@
+{
+  "name": "recruitment",
+  "version": "1.0.0",
+  "description": "WP recruitment task",
+  "main": "index.js",
+  "author": "Jerzy Lesniak",
+  "license": "MIT",
+  "scripts": {
+    "start-js": "webpack-dev-server -d --hot",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "webpack -d",
+    "build": "npm-run-all build-css build-js",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
+  },
+  "dependencies": {
+    "mobx": "^3.5.1",
+    "mobx-react": "^4.4.1",
+    "node-sass-chokidar": "0.0.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "webpack-css-loaders": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "@types/react-router-dom": "^4.2.3",
+    "npm-run-all": "^4.1.2",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
