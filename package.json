@@ -5,10 +5,27 @@
   "main": "index.js",
   "author": "Jerzy Lesniak",
   "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
+    },
+    "testRegex": "/src/.*\\.(test.tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|jpg|png)$": "<rootDir>/empty-module.js"
+    }
+  },
   "scripts": {
     "start-js": "webpack-dev-server -d --hot",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "webpack -d",
+    "test": "jest",
     "build": "npm-run-all build-css build-js",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
@@ -24,10 +41,13 @@
     "webpack-css-loaders": "^1.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^22.1.4",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "@types/react-router-dom": "^4.2.3",
+    "jest": "^22.4.2",
     "npm-run-all": "^4.1.2",
+    "ts-jest": "^22.4.1",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
     "webpack": "^4.0.1",
