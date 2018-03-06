@@ -1,13 +1,19 @@
 import * as React from "react";
 
+import {Route, Switch} from "react-router-dom";
+import routePaths from "./constants/routePaths";
+import CategoryListContainer from "./containers/category-list-container/CategoryListContainer";
+
 import './App.css';
 
 class App extends React.Component {
   render() {
     return (
-      <h1 className="title">
-        Welcome, <span>WP</span>!
-      </h1>
+      <div className="app--container">
+        <Switch>
+          <Route path={routePaths.root} component={CategoryListContainer}/>
+        </Switch>
+      </div>
     );
   }
 }
