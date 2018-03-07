@@ -23,7 +23,7 @@ const config = {
         test: /\.tsx?$/, loader: "ts-loader"
       },
       {
-        test: /\.(jpe?g|png|gif)$/i,
+        test: /\.(jpeg|png|gif)$/i,
         loader:"file-loader",
         query:{
           name:'[name].[ext]',
