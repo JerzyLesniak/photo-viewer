@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
-import {Collection, CollectionImage} from "../../../stores/UnsplashApiStore";
+import {Collection, CollectionImage, CollectionsEnum} from "../../../stores/UnsplashApiStore";
 import routePaths from "../../../constants/routePaths";
 
 import './CategoryListItem.css'
 
 interface Props {
-  categoryName: string;
+  collectionId: number;
   collection: Collection;
 }
 
@@ -23,9 +23,9 @@ const settings = {
 export default class CategoryListItem extends React.Component<Props> {
   render() {
     return (
-      <Link className="category-list-item--container" to={routePaths.category}>
+      <Link className="category-list-item--container" to={`${routePaths.allPhotos.path}/${this.props.collectionId}`}>
         <div className="category-list-item--title">
-          {this.props.categoryName}
+          {CollectionsEnum.property[this.props.collectionId].name}
         </div>
         <Slider className="category-list-item--slider-container" {...settings}>
           {this.props.collection.images.map((image: CollectionImage) => (

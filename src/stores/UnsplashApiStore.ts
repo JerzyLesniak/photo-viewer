@@ -30,8 +30,21 @@ const fetchedCollections = [
   CollectionsEnum.city,
 ];
 
+export enum SortTypes {
+  LATEST = 'latest',
+  POPULAR = 'popular',
+}
+
 export interface CollectionImage {
   id: string,
+  likes: number,
+  user: {
+    location: string,
+    links: {
+      html: string,
+      portfolio: string
+    }
+  }
   urls: {
     small: string,
     thumb: string,
@@ -56,22 +69,36 @@ export default class UnsplashApiStore {
     });
   }
 
+  fetchPaginatedCollectionPhotos =
+    async (collectionId: number, page: number, sortType?: SortTypes): Promise<Array<CollectionImage>> => {
+      try {
+        const data = await this.unsplashInstance.collections.getCollectionPhotos(
+          collectionId,
+          page,
+          18,
+          sortType ? sortType : SortTypes.LATEST
+        );
+
+        return await toJson(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
   fetchCollectionsPhotos = () => {
     try {
-      fetchedCollections.forEach(async (collectionId) => {
+      fetchedCollections.forEach(async (collectionId: number) => {
         const data = await this.unsplashInstance.collections.getCollectionPhotos(collectionId, 1, 10, 'latest');
         const images = await toJson(data);
-        //const images = mockData;
         const collection = {
           images,
           collectionId
         };
-
+        console.log(mockData);
         this.latestCollections.push(collection);
       });
     } catch (e) {
       console.log(e);
     }
-
   }
 }
