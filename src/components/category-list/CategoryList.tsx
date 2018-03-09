@@ -17,7 +17,7 @@ export default class Category extends React.Component<Props> {
           return (
             <CategoryListItem
               key={collection.collectionId}
-              categoryName={CollectionsEnum.property[collection.collectionId].name}
+              collectionId={collection.collectionId}
               collection={collection}
             />
           )

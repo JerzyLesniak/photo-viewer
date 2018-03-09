@@ -1,4 +1,7 @@
 export default {
   root: '/',
-  category: '/category'
+  allPhotos: {
+    path: '/all-photos',
+    idPath: '/all-photos/:collectionId'
+  }
 }
