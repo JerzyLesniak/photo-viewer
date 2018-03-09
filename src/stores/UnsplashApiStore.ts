@@ -1,7 +1,6 @@
 import RootStore from "./RootStore";
 import Unsplash, {toJson} from 'unsplash-js';
 import {observable} from "mobx";
-import mockData from "../test/TestPhotos";
 
 export const CollectionsEnum = {
   stars: 795671,
@@ -30,6 +29,11 @@ const fetchedCollections = [
   CollectionsEnum.city,
 ];
 
+export enum SortTypes {
+  LATEST = 'latest',
+  POPULAR = 'popular',
+}
+
 export interface CollectionImage {
   id: string,
   urls: {
@@ -56,6 +60,22 @@ export default class UnsplashApiStore {
     });
   }
 
+  fetchPaginatedCollectionPhotos =
+    async (collectionId: number, page: number, sortType?: SortTypes ): Promise<Array<CollectionImage>> => {
+    try {
+        const data = await this.unsplashInstance.collections.getCollectionPhotos(
+          collectionId,
+          page,
+          20,
+          sortType ? sortType : SortTypes.LATEST
+        );
+
+        return await toJson(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   fetchCollectionsPhotos = () => {
     try {
       fetchedCollections.forEach(async (collectionId) => {
@@ -72,6 +92,5 @@ export default class UnsplashApiStore {
     } catch (e) {
       console.log(e);
     }
-
   }
 }
