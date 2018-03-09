@@ -45,7 +45,11 @@ export default class CategoryContainer extends React.Component<Props, State> {
   render() {
     const {latestCollections} = this.rootStore.unsnplashApiStore;
     if (!latestCollections || latestCollections.length < 1) {
-      return <img src={spinner}/>
+      return (
+        <div className="spinner">
+          <img src={spinner}/>
+        </div>
+      );
     }
     return (
       <CategoryList latestCollections={this.rootStore.unsnplashApiStore.latestCollections}/>

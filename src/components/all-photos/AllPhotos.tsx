@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import {CollectionImage} from "../../stores/UnsplashApiStore";
 
-import 'AllPhotos.css';
+import './AllPhotos.css';
+
 
 interface Props {
   collectionId: number;
@@ -21,8 +22,9 @@ export default class AllPhotos extends React.Component<Props> {
   }
 
   onScroll = () => {
+
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - document.body.offsetHeight/2) &&
+      (window.scrollY >= document.body.scrollHeight * 0.55) &&
       this.props.photos.length &&
       !this.props.isLoading
     ) {
@@ -30,18 +32,30 @@ export default class AllPhotos extends React.Component<Props> {
     }
   }
 
+  renderLocation = (location: any) => {
+    if (location != null) {
+      return <span>Location: {location}</span>
+    }
+  }
+
   render() {
-    const {photos} = this.props;
     return (
       <div className="all-photos--container">
-        <div className="all-photos--section">
-        {photos.map(item =>
-          <div className="all-photos--photo-container" key={item.id}>
+        <div className="all-photos--inner-container">
+        {this.props.photos.map(item =>
+          <div key={item.id} className="all-photos--photo-container">
             <img className="all-photos--photo" src={item.urls.small}/>
+            <div className="all-photos--photo-info">
+              <span>Likes: {item.likes}</span>
+              <a href={item.user.links.html}>Link to author site</a>
+              <a href={item.user.links.portfolio}>Author portfolio</a>
+              {this.renderLocation(item.user.location)}
+            </div>
           </div>
         )}
-        </div>
+      </div>
       </div>
     );
   }
 }
+

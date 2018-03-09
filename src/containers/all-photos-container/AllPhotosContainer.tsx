@@ -6,10 +6,13 @@ import {RouteComponentProps} from "react-router";
 import {CollectionImage} from "../../stores/UnsplashApiStore";
 import CategoryAllPhotos from "../../components/all-photos/AllPhotos";
 
+import * as spinner from "../../resources/loading.gif";
+
 const applySetResult = (result: Array<CollectionImage>, page: number) => ({
   photos: result,
   page: page,
   isLoading: false,
+  initialLoading: false,
 });
 
 const applyUpdateResult = (result: Array<CollectionImage>, page: number) => (prevState) => ({
@@ -32,6 +35,7 @@ interface State {
   photos: Array<CollectionImage>,
   page: number,
   isLoading: boolean,
+  initialLoading: boolean,
 }
 
 @inject('rootStore')
@@ -53,6 +57,7 @@ export default class AllPhotosContainer extends React.Component<Props, State> {
       photos: [],
       page: null,
       isLoading: false,
+      initialLoading: true,
     };
   }
 
@@ -80,6 +85,13 @@ export default class AllPhotosContainer extends React.Component<Props, State> {
 
   render() {
     const collectionId = this.props.match.params.collectionId;
+    if (this.state.initialLoading) {
+      return (
+        <div className="spinner">
+          <img src={spinner}/>
+        </div>
+      );
+    }
     return (
       <CategoryAllPhotos
         collectionId={collectionId}
