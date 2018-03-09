@@ -1,0 +1,20 @@
+.all-photos--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.all-photos--section {
+  width: 70%;
+}
+
+.all-photos--photo-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.all-photos--photo {
+  width: 100%;
+}
